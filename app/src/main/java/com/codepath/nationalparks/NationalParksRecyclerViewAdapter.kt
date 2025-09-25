@@ -34,6 +34,8 @@ class NationalParksRecyclerViewAdapter(
 
 
         val mParkName: TextView = mView.findViewById(id.park_name) as TextView
+        val mParkLocation: TextView = mView.findViewById(id.park_location) as TextView
+
         val mParkDescription: TextView = mView.findViewById(id.park_description) as TextView
 
         override fun toString(): String {
@@ -46,6 +48,7 @@ class NationalParksRecyclerViewAdapter(
 
         holder.mItem = park
         holder.mParkName.text = park.name
+        holder.mParkLocation.text = park.location
         holder.mParkDescription.text = park.description
 
         // Load image using Glide
