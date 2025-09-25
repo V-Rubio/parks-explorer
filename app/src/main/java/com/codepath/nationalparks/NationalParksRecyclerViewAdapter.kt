@@ -3,9 +3,11 @@ package com.codepath.nationalparks
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.nationalparks.R.id
+import com.bumptech.glide.Glide
 
 /**
  * [RecyclerView.Adapter] that can display a [NationalPark] and makes a call to the
@@ -28,6 +30,9 @@ class NationalParksRecyclerViewAdapter(
         var mItem: NationalPark? = null
 
         // TODO: Step 4a - Add references for remaining views from XML
+        val mParkImage: ImageView = mView.findViewById(R.id.park_image)
+
+
         val mParkName: TextView = mView.findViewById(id.park_name) as TextView
         val mParkDescription: TextView = mView.findViewById(id.park_description) as TextView
 
@@ -39,21 +44,33 @@ class NationalParksRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ParkViewHolder, position: Int) {
         val park = parks[position]
 
-        // TODO: Step 4b - Bind the park data to the views
         holder.mItem = park
         holder.mParkName.text = park.name
         holder.mParkDescription.text = park.description
 
-        // TODO: Step 4c - Use Glide to load the first image
+        // Load image using Glide
+        val imageUrl = park.imageUrl
+        if (!imageUrl.isNullOrEmpty()) {
+            Glide.with(holder.mView)
+                .load(imageUrl)
+                .centerInside()
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.error_image)
+                .into(holder.mParkImage)
+        } else {
+            Glide.with(holder.mView)
+                .load(R.drawable.placeholder) // default image when no URL
+                .centerInside()
+                .into(holder.mParkImage)
+        }
 
-
-        // Sets up click listener for this park item
         holder.mView.setOnClickListener {
             holder.mItem?.let { park ->
                 mListener?.onItemClick(park)
             }
         }
     }
+
 
     // Tells the RecyclerView how many items to display
     override fun getItemCount(): Int {
