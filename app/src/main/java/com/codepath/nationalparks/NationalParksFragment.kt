@@ -86,14 +86,23 @@ class NationalParksFragment : Fragment(), OnListFragmentInteractionListener {
                 Log.d("NationalParksFragment", "response successful")
             }
 
+            /*
+             * The onFailure function gets called when
+             * HTTP response status is "4XX" (eg. 401, 403, 404)
+             */
             override fun onFailure(
                 statusCode: Int,
                 headers: Headers?,
                 errorResponse: String,
                 t: Throwable?
             ) {
+                // The wait for a response is over
                 progressBar.hide()
-                Log.e("NationalParksFragment", "API call failed: $errorResponse")
+
+                // If the error is not null, log it!
+                t?.message?.let {
+                    Log.e("NationalParksFragment", errorResponse)
+                }
             }
         })
     }

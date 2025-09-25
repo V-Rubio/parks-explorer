@@ -10,12 +10,18 @@ import com.google.gson.annotations.SerializedName
  */
 class NationalPark {
 
+    // Name field
+    @JvmField
     @SerializedName("fullName")
     var name: String? = null
 
+    // Description field
+    @JvmField
     @SerializedName("description")
     var description: String? = null
 
+    // Location or State field
+    @JvmField
     @SerializedName("states")
     var location: String? = null
 

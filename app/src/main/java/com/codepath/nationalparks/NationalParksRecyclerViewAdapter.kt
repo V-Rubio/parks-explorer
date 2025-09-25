@@ -64,13 +64,14 @@ class NationalParksRecyclerViewAdapter(
                 .into(holder.mParkImage)
         }
 
+
+        // Sets up click listener for this park item
         holder.mView.setOnClickListener {
             holder.mItem?.let { park ->
                 mListener?.onItemClick(park)
             }
         }
     }
-
 
     // Tells the RecyclerView how many items to display
     override fun getItemCount(): Int {
